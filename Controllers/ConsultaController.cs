@@ -2,6 +2,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using System;
+using System.IO;
 
 namespace ConsultaTemperaturasApi.Controllers
 {
@@ -15,7 +16,26 @@ namespace ConsultaTemperaturasApi.Controllers
         /// <summary>
         /// Caminho da pasta onde estão os bancos de dados SQLite.
         /// </summary>
-        private readonly string _dbFolder = "/home/yuka/Desktop/databases/temperaturas";
+        private readonly string _dbFolder;
+
+        /// <summary>
+        /// Inicializa uma nova instância do controlador de consulta de temperaturas.
+        /// </summary>
+        /// <param name="configuration">Configuração da aplicação que contém o caminho para o banco de dados.</param>
+        public ConsultaController(IConfiguration configuration)
+        {
+            var dbFolder = configuration["DatabaseSettings:DatabaseFolder"];
+            if (string.IsNullOrEmpty(dbFolder))
+            {
+                throw new InvalidOperationException("O caminho para o banco de dados não está configurado corretamente.");
+            }
+            _dbFolder = Path.Combine(Directory.GetCurrentDirectory(), dbFolder);
+
+            if (!Directory.Exists(_dbFolder))
+            {
+                Directory.CreateDirectory(_dbFolder);
+            }
+        }
 
         /// <summary>
         /// Consulta a viabilidade de plantação para uma cultura específica.
@@ -45,7 +65,7 @@ namespace ConsultaTemperaturasApi.Controllers
                 return BadRequest("Os parâmetros 'cidade', 'ano', 'data' e 'cultura' são obrigatórios.");
             }
 
-            // Monta o caminho do banco de dados (ex.: /home/yuka/Desktop/databases/temperaturas/"CIDADE"_"ANO".db)
+            // Monta o caminho do banco de dados 
             string dbPath = System.IO.Path.Combine(_dbFolder, $"{cidade}_{ano}.db");
 
             // Verifica se o banco de dados existe
