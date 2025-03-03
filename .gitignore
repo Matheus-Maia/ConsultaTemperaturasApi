@@ -1,0 +1,26 @@
+# Ignorar pastas de build e dependências
+bin/
+obj/
+
+# Ignorar arquivos de configuração local
+appsettings.Development.json
+
+# Ignorar arquivos de usuário específicos
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Ignorar arquivos de log e temporários
+*.log
+*.tmp
+*.cache
+
+# Ignorar arquivos gerados pelo Visual Studio
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
