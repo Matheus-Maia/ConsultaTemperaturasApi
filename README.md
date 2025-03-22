@@ -1,6 +1,6 @@
 # ConsultaTemperaturasApi 🌡️
 
-**ConsultaTemperaturasApi** é uma API RESTful para consultar e analisar dados de temperaturas de diversas cidades e anos, utilizando bancos de dados SQLite. A API permite obter informações sobre as temperaturas mínimas e máximas de uma cidade em um determinado ano.
+**ConsultaTemperaturasApi** é uma API RESTful para consultar e analisar dados de temperaturas de diversas cidades e anos, utilizando bancos de dados SQLite. A API consulta a viabilidade de plantação para uma cultura específica utilizando as informações sobre as temperaturas mínimas e máximas de uma cidade em um determinado ano obtidas de um banco de dados sqlite (dados obtidos pelo INMET).
 
 ## Sumário
 
